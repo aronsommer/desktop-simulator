@@ -14,7 +14,6 @@
             height: 100%;
             font-family: 'San Francisco', sans-serif;
             -webkit-tap-highlight-color: transparent;
-            /* Remove blue highlight */
         }
 
         /* Generic Gradient Background */
@@ -28,10 +27,8 @@
         /* Menu Bar */
         .menu-bar {
             background-color: #ffffff;
-            /* No transparency */
             color: black;
             height: 30px;
-            /* Original height */
             display: flex;
             align-items: center;
             font-size: 14px;
@@ -56,14 +53,11 @@
             display: none;
             position: absolute;
             top: 30px;
-            /* Perfectly aligned under the menu bar */
             left: 0;
             background-color: #ffffff;
-            /* No transparency */
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             z-index: 10;
             padding: 5px 0;
-            /* Padding for dropdown items */
         }
 
         .dropdown-item {
@@ -72,7 +66,6 @@
             cursor: pointer;
             transition: background-color 0.2s ease;
             text-align: left;
-            /* Left align for desktop */
         }
 
         .dropdown-item:hover {
@@ -81,9 +74,8 @@
 
         /* Dock and Icons */
         .dock {
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: #202020;
             height: 60px;
-            /* Reduced height */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -103,7 +95,6 @@
             transition: transform 0.3s ease;
         }
 
-        /* Dock icon hover effect */
         .dock-item:hover {
             transform: scale(1.2);
         }
@@ -116,26 +107,22 @@
 
         /* App-specific colors */
         .app1 {
-            background-color: #4caf50;
-            /* Green */
+            background-color: #4caf50; /* Green */
         }
 
         .app2 {
-            background-color: #f44336;
-            /* Red */
+            background-color: #f44336; /* Red */
         }
 
         .app3 {
-            background-color: #2196f3;
-            /* Blue */
+            background-color: #2196f3; /* Blue */
         }
 
         /* Tooltip for dock items */
         .tooltip {
             visibility: hidden;
             width: 120px;
-            background-color: rgba(0, 0, 0, 0.5);
-            /* Same color as dock */
+            background-color: #202020;
             color: white;
             text-align: center;
             border-radius: 5px;
@@ -143,7 +130,6 @@
             position: absolute;
             z-index: 10;
             bottom: 60px;
-            /* Position above the dock */
             left: 50%;
             transform: translateX(-50%);
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
@@ -157,50 +143,43 @@
         @media screen and (max-width: 600px) {
             .menu-bar {
                 flex-direction: column;
-                /* Vertical stacking */
                 padding: 10px 0;
-                /* Added padding for vertical spacing */
-                height: auto;
-                /* Allow height to adjust automatically */
             }
 
             .menu-items-left {
                 flex-direction: column;
-                /* Vertically aligned items */
                 width: 100%;
-                /* Take full width */
             }
 
             .menu-bar-item {
                 margin: 10px 0;
-                /* Spacing between menu items */
                 text-align: center;
-                /* Center aligned on mobile */
                 flex: 1;
-                /* Take equal width */
                 font-size: 18px;
-                /* Increased font size for mobile */
                 padding: 10px;
-                /* Added padding for touch targets */
+                background-color: white;
             }
 
             .dropdown {
                 top: 40px;
-                /* Adjusted to be below the menu bar */
                 left: 50%;
-                /* Center the dropdown */
                 transform: translateX(-50%);
-                width: auto;
-                /* Adjusts to content */
+                width: 90%;
+                background-color: #202020;
+                color: white;
+                border-radius: 10px;
             }
 
             .dropdown-item {
                 text-align: center;
-                /* Center text on mobile */
             }
 
-            .dock {
-                height: 60px;
+            .dropdown-item:hover {
+                background-color: transparent;
+            }
+
+            .tooltip {
+                display: none;
             }
 
             .dock-item .icon {
@@ -215,7 +194,6 @@
             /* Emoji size in mobile view */
             #funny-emoji-menu {
                 font-size: 30px;
-                /* Make emoji larger on mobile */
             }
         }
     </style>
@@ -225,7 +203,6 @@
     <div class="desktop">
         <!-- Menu Bar -->
         <div class="menu-bar">
-            <!-- Left-aligned Menu Items -->
             <div class="menu-items-left">
                 <div class="menu-bar-item" id="funny-emoji-menu">😂
                     <div class="dropdown" id="funny-dropdown">
@@ -263,15 +240,15 @@
         <div class="dock">
             <div class="dock-item" id="launch-app1">
                 <div class="icon app1"></div>
-                <div class="tooltip">App 1</div> <!-- Tooltip for App 1 -->
+                <div class="tooltip">App 1</div>
             </div>
             <div class="dock-item" id="launch-app2">
                 <div class="icon app2"></div>
-                <div class="tooltip">App 2</div> <!-- Tooltip for App 2 -->
+                <div class="tooltip">App 2</div>
             </div>
             <div class="dock-item" id="launch-app3">
                 <div class="icon app3"></div>
-                <div class="tooltip">App 3</div> <!-- Tooltip for App 3 -->
+                <div class="tooltip">App 3</div>
             </div>
         </div>
     </div>
@@ -321,14 +298,13 @@
         });
 
         document.getElementById('open-file').addEventListener('click', function () {
-            alert('Opening file...');
+            alert('File opened!');
         });
 
         document.getElementById('close-window').addEventListener('click', function () {
-            alert('Closing window...');
+            alert('Window closed!');
         });
 
-        // Additional functionality for other dropdown items
         document.getElementById('undo').addEventListener('click', function () {
             alert('Undo action performed!');
         });
@@ -350,15 +326,15 @@
         });
 
         document.getElementById('zoom-in').addEventListener('click', function () {
-            alert('Zooming in...');
+            alert('Zoomed In!');
         });
 
         document.getElementById('zoom-out').addEventListener('click', function () {
-            alert('Zooming out...');
+            alert('Zoomed Out!');
         });
 
         document.getElementById('full-screen').addEventListener('click', function () {
-            alert('Entering full screen...');
+            alert('Entering Full Screen!');
         });
     </script>
 </body>
