@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop Simulator</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'San Francisco', sans-serif;
+        }
+
+        /* Generic Gradient Background */
+        .desktop {
+            background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Menu Bar */
+        .menu-bar {
+            background-color: #ffffff;
+            /* No transparency */
+            color: black;
+            height: 30px;
+            /* Original height */
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            padding-left: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Left-aligned menu items */
+        .menu-items-left {
+            display: flex;
+        }
+
+        .menu-bar-item {
+            margin: 0 15px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 30px;
+            /* Perfectly aligned under the menu bar */
+            left: 0;
+            background-color: #ffffff;
+            /* No transparency */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            padding: 5px 0;
+            /* Padding for dropdown items */
+        }
+
+        .dropdown-item {
+            padding: 8px 15px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            text-align: left;
+            /* Left align for desktop */
+        }
+
+        .dropdown-item:hover {
+            background-color: lightgray;
+        }
+
+        /* Dock and Icons */
+        .dock {
+            background-color: rgba(0, 0, 0, 0.5);
+            height: 60px;
+            /* Reduced height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        .dock-item {
+            margin: 0 15px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        /* Dock icon hover effect */
+        .dock-item:hover {
+            transform: scale(1.2);
+        }
+
+        .dock-item .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+        }
+
+        /* App-specific colors */
+        .app1 {
+            background-color: #4caf50;
+            /* Green */
+        }
+
+        .app2 {
+            background-color: #f44336;
+            /* Red */
+        }
+
+        .app3 {
+            background-color: #2196f3;
+            /* Blue */
+        }
+
+        /* Tooltip for dock items */
+        .tooltip {
+            visibility: hidden;
+            width: 120px;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Same color as dock */
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 10;
+            bottom: 60px;
+            /* Position above the dock */
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .dock-item:hover .tooltip {
+            visibility: visible;
+        }
+
+        /* Mobile Responsiveness */
+        @media screen and (max-width: 600px) {
+            .menu-bar {
+                flex-direction: column;
+                /* Vertical stacking */
+                padding: 10px 0;
+                /* Added padding for vertical spacing */
+                height: auto;
+                /* Allow height to adjust automatically */
+            }
+
+            .menu-items-left {
+                flex-direction: column;
+                /* Vertically aligned items */
+                width: 100%;
+                /* Take full width */
+            }
+
+            .menu-bar-item {
+                margin: 10px 0;
+                /* Spacing between menu items */
+                text-align: center;
+                /* Center aligned on mobile */
+                flex: 1;
+                /* Take equal width */
+                font-size: 18px;
+                /* Increased font size for mobile */
+                padding: 10px;
+                /* Added padding for touch targets */
+            }
+
+            .dropdown {
+                top: 40px;
+                /* Adjusted to be below the menu bar */
+                left: 50%;
+                /* Center the dropdown */
+                transform: translateX(-50%);
+                width: auto;
+                /* Adjusts to content */
+            }
+
+            .dropdown-item {
+                text-align: center;
+                /* Center text on mobile */
+            }
+
+            .dock {
+                height: 60px;
+            }
+
+            .dock-item .icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .dock-item {
+                margin: 0 10px;
+            }
+
+            /* Emoji size in mobile view */
+            #funny-emoji-menu {
+                font-size: 30px;
+                /* Make emoji larger on mobile */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="desktop">
+        <!-- Menu Bar -->
+        <div class="menu-bar">
+            <!-- Left-aligned Menu Items -->
+            <div class="menu-items-left">
+                <div class="menu-bar-item" id="funny-emoji-menu">😂
+                    <div class="dropdown" id="funny-dropdown">
+                        <div class="dropdown-item" id="fun-option1">Fun Option 1</div>
+                        <div class="dropdown-item" id="fun-option2">Fun Option 2</div>
+                    </div>
+                </div>
+                <div class="menu-bar-item" id="file-menu">File
+                    <div class="dropdown" id="file-dropdown">
+                        <div class="dropdown-item" id="new-window">New Window</div>
+                        <div class="dropdown-item" id="open-file">Open File...</div>
+                        <div class="dropdown-item" id="close-window">Close Window</div>
+                    </div>
+                </div>
+                <div class="menu-bar-item" id="edit-menu">Edit
+                    <div class="dropdown" id="edit-dropdown">
+                        <div class="dropdown-item" id="undo">Undo</div>
+                        <div class="dropdown-item" id="redo">Redo</div>
+                        <div class="dropdown-item" id="cut">Cut</div>
+                        <div class="dropdown-item" id="copy">Copy</div>
+                        <div class="dropdown-item" id="paste">Paste</div>
+                    </div>
+                </div>
+                <div class="menu-bar-item" id="view-menu">View
+                    <div class="dropdown" id="view-dropdown">
+                        <div class="dropdown-item" id="zoom-in">Zoom In</div>
+                        <div class="dropdown-item" id="zoom-out">Zoom Out</div>
+                        <div class="dropdown-item" id="full-screen">Enter Full Screen</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dock -->
+        <div class="dock">
+            <div class="dock-item" id="launch-app1">
+                <div class="icon app1"></div>
+                <div class="tooltip">App 1</div> <!-- Tooltip for App 1 -->
+            </div>
+            <div class="dock-item" id="launch-app2">
+                <div class="icon app2"></div>
+                <div class="tooltip">App 2</div> <!-- Tooltip for App 2 -->
+            </div>
+            <div class="dock-item" id="launch-app3">
+                <div class="icon app3"></div>
+                <div class="tooltip">App 3</div> <!-- Tooltip for App 3 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Handle funny emoji dropdown and alert
+        document.getElementById('funny-emoji-menu').addEventListener('click', function () {
+            let dropdown = document.getElementById('funny-dropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            alert('You clicked the funny emoji! 😆');
+        });
+
+        // Handle dropdown menu toggling
+        document.querySelectorAll('.menu-bar-item').forEach(item => {
+            item.addEventListener('click', function (event) {
+                event.stopPropagation(); // Prevent event from bubbling
+                let dropdown = item.querySelector('.dropdown');
+                if (dropdown) {
+                    let isVisible = dropdown.style.display === 'block';
+                    document.querySelectorAll('.dropdown').forEach(dd => dd.style.display = 'none');
+                    dropdown.style.display = isVisible ? 'none' : 'block';
+                }
+            });
+        });
+
+        // Close dropdown if clicking outside
+        document.addEventListener('click', function () {
+            document.querySelectorAll('.dropdown').forEach(dd => dd.style.display = 'none');
+        });
+
+        // Dock icon clicks
+        document.getElementById('launch-app1').addEventListener('click', function () {
+            alert('Opening App 1...');
+        });
+
+        document.getElementById('launch-app2').addEventListener('click', function () {
+            alert('Opening App 2...');
+        });
+
+        document.getElementById('launch-app3').addEventListener('click', function () {
+            alert('Opening App 3...');
+        });
+
+        // Add functionality for dropdown items
+        document.getElementById('new-window').addEventListener('click', function () {
+            alert('New window opened!');
+        });
+
+        document.getElementById('open-file').addEventListener('click', function () {
+            alert('Opening file...');
+        });
+
+        document.getElementById('close-window').addEventListener('click', function () {
+            alert('Closing window...');
+        });
+
+        // Additional functionality for other dropdown items as needed
+    </script>
+</body>
+
+</html>
