@@ -144,11 +144,13 @@
             .menu-bar {
                 flex-direction: column;
                 padding: 10px 0;
+                background-color: transparent;
             }
 
             .menu-items-left {
                 flex-direction: column;
-                width: 100%;
+                width: 80%; /* Reduce width to less than 100% */
+                margin: 0 auto; /* Center the items */
             }
 
             .menu-bar-item {
@@ -158,6 +160,7 @@
                 font-size: 18px;
                 padding: 10px;
                 background-color: white;
+                border-radius: 10px;
             }
 
             .dropdown {
